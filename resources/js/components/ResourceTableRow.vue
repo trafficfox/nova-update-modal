@@ -171,7 +171,7 @@
 <script>
 import UpdateResourceModal from "../modals/UpdateResourceModal"
 export default {
-  components: {UpdateModal},
+  components: {UpdateResourceModal},
   props: [
     'testId',
     'deleteResource',
