@@ -247,7 +247,7 @@ export default {
       this.updateModalOpen = false
     },
 
-    confirmDeleteModal() {
+    confirmUpdateModal() {
       this.updateModalOpen = false
       this.$router.go()
     },
