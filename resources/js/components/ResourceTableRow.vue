@@ -162,7 +162,15 @@
             </p>
           </div>
         </restore-resource-modal>
+        <update-resource-modal
+                v-if="updateModalOpen"
+                @close="closeUpdateModal"
+                @confirm="confirmUpdateModal"
+                :resourceId=resource.id.value
+                :resourceName=resourceName
+                >
 
+        </update-resource-modal>
       </portal>
     </td>
   </tr>
