@@ -1,0 +1,36 @@
+{
+    "name": "sohaibafifi/nova-update-modal",
+    "description": "A nova hack to display update form as a modal.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "laravel/nova": ">=2.0.0 <=2.9.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sohaibafifi\\UpdateModal\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sohaibafifi\\UpdateModal\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
