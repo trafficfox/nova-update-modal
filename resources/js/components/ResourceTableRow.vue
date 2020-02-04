@@ -46,20 +46,20 @@
             :data-testid="`${testId}-view-button`"
             :dusk="`${resource['id'].value}-view-button`"
             class="inline-flex cursor-pointer text-70 hover:text-primary mr-3"
-            :to="{
+            v-tooltip.click="__('View')"
+             :to="{
               name: 'detail',
               params: {
                 resourceName: resourceName,
                 resourceId: resource['id'].value,
               },
             }"
-            :title="__('View')"
           >
             <icon type="view" width="22" height="18" view-box="0 0 22 16" />
           </router-link>
         </span>
 
-        <span class="inline-flex" v-if="resource.authorizedToUpdate">
+         <span v-if="resource.authorizedToUpdate" class="inline-flex">
           <!-- Edit Pivot Button -->
           <router-link
             v-if="
@@ -68,6 +68,7 @@
             "
             class="inline-flex cursor-pointer text-70 hover:text-primary mr-3"
             :dusk="`${resource['id'].value}-edit-attached-button`"
+            v-tooltip.click="__('Edit Attached')"
             :to="{
               name: 'edit-attached',
               params: {
@@ -80,7 +81,6 @@
                 viaRelationship: viaRelationship,
               },
             }"
-            :title="__('Edit Attached')"
           >
             <icon type="edit" />
           </router-link>
@@ -90,7 +90,7 @@
                 v-else
                 class="cursor-pointer text-info text-70 hover:text-primary mr-3"
                 @click.prevent="openUpdateModal"
-                :title="__('Edit')"
+                v-tooltip.click="__('Edit')"
                 >
               <icon type="edit"/>
             </span>
@@ -114,6 +114,7 @@
         <!-- Restore Resource Link -->
         <button
           :dusk="`${resource['id'].value}-restore-button`"
+          v-tooltip.click="__(viaManyToMany ? 'Detach' : 'Delete')"
           class="inline-flex appearance-none cursor-pointer text-70 hover:text-primary mr-3"
           v-if="
             resource.authorizedToRestore &&
@@ -121,48 +122,48 @@
               !viaManyToMany
           "
           @click.prevent="openRestoreModal"
-          :title="__('Restore')"
         >
           <icon type="restore" with="20" height="21" />
         </button>
-      </div>
 
-      <portal
-        to="modals"
-        transition="fade-transition"
-        v-if="deleteModalOpen || restoreModalOpen || updateModalOpen"
-      >
-        <delete-resource-modal
-          v-if="deleteModalOpen"
-          @confirm="confirmDelete"
-          @close="closeDeleteModal"
-          :mode="viaManyToMany ? 'detach' : 'delete'"
-        >
-          <div slot-scope="{ uppercaseMode, mode }" class="p-8">
-            <heading :level="2" class="mb-6">{{
-              __(uppercaseMode + ' Resource')
-            }}</heading>
-            <p class="text-80 leading-normal">
-              {{ __('Are you sure you want to ' + mode + ' this resource?') }}
-            </p>
-          </div>
-        </delete-resource-modal>
 
-        <restore-resource-modal
-          v-if="restoreModalOpen"
-          @confirm="confirmRestore"
-          @close="closeRestoreModal"
+        <portal
+          to="modals"
+          transition="fade-transition"
+          v-if="deleteModalOpen || restoreModalOpen || updateModalOpen"
         >
-          <div class="p-8">
-            <heading :level="2" class="mb-6">{{
-              __('Restore Resource')
-            }}</heading>
-            <p class="text-80 leading-normal">
-              {{ __('Are you sure you want to restore this resource?') }}
-            </p>
-          </div>
-        </restore-resource-modal>
-        <update-resource-modal
+
+           <delete-resource-modal
+             v-if="deleteModalOpen"
+             @confirm="confirmDelete"
+             @close="closeDeleteModal"
+             :mode="viaManyToMany ? 'detach' : 'delete'"
+           >
+             <div slot-scope="{ uppercaseMode, mode }" class="p-8">
+               <heading :level="2" class="mb-6">{{
+                 __(uppercaseMode + ' Resource')
+               }}</heading>
+               <p class="text-80 leading-normal">
+                 {{ __('Are you sure you want to ' + mode + ' this resource?') }}
+               </p>
+             </div>
+           </delete-resource-modal>
+
+           <restore-resource-modal
+             v-if="restoreModalOpen"
+             @confirm="confirmRestore"
+             @close="closeRestoreModal"
+           >
+             <div class="p-8">
+               <heading :level="2" class="mb-6">{{
+                 __('Restore Resource')
+               }}</heading>
+               <p class="text-80 leading-normal">
+                 {{ __('Are you sure you want to restore this resource?') }}
+               </p>
+             </div>
+           </restore-resource-modal>
+           <update-resource-modal
                 v-if="updateModalOpen"
                 @close="closeUpdateModal"
                 @confirm="confirmUpdateModal"
@@ -170,8 +171,9 @@
                 :resourceName=resourceName
                 >
 
-        </update-resource-modal>
-      </portal>
+            </update-resource-modal>
+        </portal>
+      </div>
     </td>
   </tr>
 </template>
