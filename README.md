@@ -1,7 +1,7 @@
 # Nova Update modal
 A Laravel Nova hack to display update form as a modal
 
-Current Supported Nova Version: **2.10.0**
+Current Supported Nova Version: **2.11.0**
 
 As new versions of Nova are released, if changes are made to any of the views that this package has to overwrite, a new version will need to be released. Composer version constraints should prevent installs on versions that aren't supported.
 
